@@ -136,18 +136,18 @@
           class="map"
         ></iframe>
 
-        <form action="">
+        <form name="contact-form">
           <div class="input-grup">
             <i data-feather="user"></i>
-            <input type="text" placeholder="Nama" />
+            <input type="text" placeholder="Nama" name="nama" required />
           </div>
           <div class="input-grup">
             <i data-feather="mail"></i>
-            <input type="text" placeholder="Email" />
+            <input type="email" placeholder="Email" name="email" required />
           </div>
           <div class="input-grup">
             <i data-feather="phone"></i>
-            <input type="text" placeholder="No hp" />
+            <input type="number" placeholder="No hp" name="noHp" required />
           </div>
           <button type="submit" class="btn">Kirim pesan</button>
         </form>
@@ -184,5 +184,23 @@
 
     <!-- my javascript -->
     <script src="js/script.js"></script>
+
+    <!-- js form spreadshet -->
+    <script>
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbwlARkl0vdHeA6Z9zOrofCx0h2QO4hS6ZBAT-lGxPYPRuZv7obIm_O_V6Jhhulmss4CAw/exec";
+      const form = document.forms["contact-form"];
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        fetch(scriptURL, { method: "POST", body: new FormData(form) })
+          .then((response) => {
+            form.reset();
+            alert("pesan berhasil dikirim");
+            console.log("Success!", response);
+          })
+          .catch((error) => console.error("Error!", error.message));
+      });
+    </script>
   </body>
 </html>
